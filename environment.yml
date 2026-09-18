@@ -1,0 +1,7 @@
+name: chem-project
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - requests
+prefix: /home/cachow/miniforge3/envs/chem-project
