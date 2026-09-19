@@ -1,6 +1,4 @@
-import time
-import requests
-import config
+import time, requests, config
 
 def search_basic_info(compound_name): # Outputs basic PUG information
     api_request = config.get_compound_base_info(compound_name)
@@ -21,11 +19,18 @@ def get_cid_by_name(compound_name): # Gets the compound CID identifier by its na
 def search_deep_info(cid):
     for header in config.PUG_VIEW_HEADERS:
         deep_api_request = config.get_specific_info(cid, header)
-        time.sleep(0.2)
+        time.sleep(0.25)
         deep_info = requests.get(deep_api_request)
         print(deep_info.json())
 
+def check_connection_status():
+    server_pug_rest = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula/JSON"
+    server_status = requests.get(server_pug_rest)
+    print(server_status.status_code, server_status.headers.get("X-Throttling-Control"))
+
+
 compound_name = input("Please enter the name of the compound you want to search: ")
+check_connection_status()
 cid = get_cid_by_name(compound_name)
 search_basic_info(compound_name)
 search_deep_info(cid)
