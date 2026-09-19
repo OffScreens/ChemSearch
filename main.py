@@ -1,11 +1,8 @@
 import requests # necesario para las API requests
+import config
 
-# Dirección de lo que queremos buscar
-url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/property/MolecularFormula,MolecularWeight/JSON"
+def search_compound(compund_name):
+    print(compound_name)
 
-# Buscamos la respuesta de la búsqueda
-respuesta = requests.get(url)
-
-# Convertimos esa respuesta de texto a un diccionario de Python
-datos = respuesta.json()
-print(datos)
+compound_name = input("Please enter the name of the compound you want to search: ")
+search_compound(compound_name)
