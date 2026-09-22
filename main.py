@@ -29,7 +29,7 @@ def get_cid_by_name(compound_name): # Gets the compound CID identifier by its na
 def search_deep_info(cid):
     for header in config.PUG_VIEW_HEADERS:
         deep_api_request = config.get_specific_info(cid, header)
-        time.sleep(0.5)
+        time.sleep(0.75)
         deep_info = session.get(deep_api_request)
         print(deep_info.json())
 
@@ -41,9 +41,9 @@ def check_connection_status():
 # MAIN APP*
 compound_name = input("Please enter the name of the compound you want to search: ")
 check_connection_status()
-time.sleep(0.75)
+time.sleep(1)
 cid = get_cid_by_name(compound_name)
-time.sleep(0.75)
+time.sleep(1)
 search_basic_info(compound_name)
-time.sleep(0.75)
+time.sleep(1)
 search_deep_info(cid)
