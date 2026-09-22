@@ -11,11 +11,11 @@ PUBCHEM_PUG_VIEW = "https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound
 # For the sake of not repeating code, we create a "dynamic" link
 PUG_VIEW_HEADERS = [
     "GHS+Classification",
-    "Toxicological+Information",
-    "Skin+Corrosion%2FIrritation",
-    "Reactivity+Profile",
-    "Storage+Conditions",
-    "Personal+Protective+Equipment+(PPE)",
+#    "Toxicological+Information",
+#    "Skin+Corrosion%2FIrritation",
+#    "Reactivity+Profile",
+#    "Storage+Conditions",
+#    "Personal+Protective+Equipment+(PPE)",
 ]
 # For PUG_VIEW API we need the CID, cannot use name, so a function is created to convert name to CID
 # Complemented by function get_cid_by_name in main.py
