@@ -12,8 +12,8 @@ session.headers["User-Agent"] = user_agent
 
 def search_basic_info(compound_name): # Outputs basic PUG information
     api_request = config.get_compound_base_info(compound_name)
-    data = session.get(api_request)
-    print(data.json())
+    basic_data = session.get(api_request)
+    return basic_data.json()
 
 def get_cid_by_name(compound_name): # Gets the compound CID identifier by its name (necessary for search_deep_info)
     cid_url = config.get_cid_url(compound_name)
@@ -40,10 +40,26 @@ def check_connection_status():
 
 # MAIN APP*
 compound_name = input("Please enter the name of the compound you want to search: ")
+
+# Connection status
 check_connection_status()
 time.sleep(1)
-cid = get_cid_by_name(compound_name)
+
+# Extract all the info and display it in a friendly manner
+basic_data = search_basic_info(compound_name)
+# ---------- CID NUMBER
+cid_number = basic_data["PropertyTable"]["Properties"][0]["CID"]
+print(f"  CID identification number: {cid_number}")
+# ---------- IUPAC NAME
+iupac_name = basic_data["PropertyTable"]["Properties"][0]["IUPACName"]
+print(f"  IUPAC Name: {iupac_name}")
+# ---------- MOLECULAR WEIGHT
+molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
+print(f"  Molecular weight: {molecular_weight}")
+
+
+#cid = get_cid_by_name(compound_name)
 time.sleep(1)
-search_basic_info(compound_name)
+#search_basic_info(compound_name)
 time.sleep(1)
-search_deep_info(cid)
+#search_deep_info(cid)
