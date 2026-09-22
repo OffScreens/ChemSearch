@@ -3,7 +3,7 @@ import time, requests, config, json
 # Read user_agent.txt with good format so session.headers doesn't crap itself
 with open("user_agent.txt", "r", encoding="utf-8") as user_file:
     user_agent = user_file.read().rstrip()
-print(user_agent)
+print("The user agent is: "+user_agent)
 
 # Make all session.get have the user agent header, having this here prevents
 # having to write it every request.
@@ -46,4 +46,4 @@ cid = get_cid_by_name(compound_name)
 time.sleep(1)
 search_basic_info(compound_name)
 time.sleep(1)
-search_deep_info(cid)
+#search_deep_info(cid)
