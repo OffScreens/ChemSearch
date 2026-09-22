@@ -37,7 +37,7 @@ check_connection_status()
 time.sleep(1)
 
 # Extract all the info and display it in a friendly manner
-basic_data = search_basic_info(compound_name)
+basic_data = search_basic_info(compound_name) # REQUEST DATA FROM PUBCHEM
 # ---------- CID NUMBER
 cid_number = basic_data["PropertyTable"]["Properties"][0]["CID"]
 print(f"  CID identification number: {cid_number}")
@@ -48,9 +48,7 @@ print(f"  IUPAC Name: {iupac_name}")
 molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
 print(f"  Molecular weight: {molecular_weight}")
 
-
-#cid = get_cid_by_name(compound_name)
-time.sleep(1)
-#search_basic_info(compound_name)
+# cid = get_cid_by_name(compound_name) DEPRECATED FUNCTION, instead of a dedicated function
+# we can use de CID identifier from search_basic_info(compound_name)
 time.sleep(1)
 search_deep_info(cid_number)
