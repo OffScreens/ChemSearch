@@ -18,8 +18,6 @@ def ghs_info(cid_number):
     time.sleep(0.75)
     return ghs_request.json()
 
- # To call this value: ghs_request = ghs_info(cid_number)
-
 def toxic_info(cid_number):
     view_url = config.get_specific_info(cid_number, "Toxicological+Information")
     toxic_request = session.get(view_url)

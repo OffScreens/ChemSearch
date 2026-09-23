@@ -44,8 +44,8 @@ print(f"  Molecular weight: {molecular_weight}")
 
 # PUG VIEW info
 ghs_info = view_api.ghs_info(cid_number)
-toxic_info = view_api.toxic_info(cid_number)
-corrosion_info = view_api.corrosion_info(cid_number)
-reactivity_info = view_api.reactivity_info(cid_number)
-storage_info = view_api.storage_info(cid_number)
-ppe_info = view_api.ppe_info(cid_number)
+#toxic_info = view_api.toxic_info(cid_number)
+#corrosion_info = view_api.corrosion_info(cid_number)
+#reactivity_info = view_api.reactivity_info(cid_number)
+#storage_info = view_api.storage_info(cid_number)
+#ppe_info = view_api.ppe_info(cid_number)
