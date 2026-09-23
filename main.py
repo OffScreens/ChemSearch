@@ -24,8 +24,6 @@ def search_deep_info(cid):
         deep_info = session.get(deep_api_request)
         return deep_info.json()
 
-
-
 def check_connection_status():
     server_pug_rest = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula/JSON"
     server_status = session.get(server_pug_rest)

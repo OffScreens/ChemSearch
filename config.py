@@ -17,8 +17,7 @@ PUG_VIEW_HEADERS = [
 #    "Storage+Conditions",
 #    "Personal+Protective+Equipment+(PPE)",
 ]
-# For PUG_VIEW API we need the CID, cannot use name, so a function is created to convert name to CID
-# Complemented by function get_cid_by_name in main.py
+# For PUG_VIEW API we need the CID
 def get_cid_url(compound_name):
     return f"{PUBCHEM_PUG}/compound/name/{compound_name}/cids/JSON"
 
