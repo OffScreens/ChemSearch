@@ -1,4 +1,5 @@
 import config
+import view_api
 import requests
 import time
 
@@ -16,13 +17,6 @@ def search_basic_info(compound_name): # Outputs basic PUG information
     api_request = config.get_compound_base_info(compound_name)
     basic_data = session.get(api_request)
     return basic_data.json()
-
-def search_deep_info(cid):
-    for header in config.PUG_VIEW_HEADERS:
-        deep_api_request = config.get_specific_info(cid, header)
-        time.sleep(0.75)
-        deep_info = session.get(deep_api_request)
-        return deep_info.json()
 
 def check_connection_status():
     server_pug_rest = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula/JSON"
@@ -48,8 +42,10 @@ print(f"  IUPAC Name: {iupac_name}")
 molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
 print(f"  Molecular weight: {molecular_weight}")
 
-deep_info = search_deep_info(cid_number)
-
-
-time.sleep(1)
-search_deep_info(cid_number)
+# PUG VIEW info
+ghs_info = view_api.ghs_info(cid_number)
+toxic_info = view_api.toxic_info(cid_number)
+corrosion_info = view_api.corrosion_info(cid_number)
+reactivity_info = view_api.reactivity_info(cid_number)
+storage_info = view_api.storage_info(cid_number)
+ppe_info = view_api.ppe_info(cid_number)

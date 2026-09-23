@@ -1,6 +1,7 @@
-import view_api
+import main
 
 def ghs_parsing(ghs_data):
-    sections = ghs_data.get("StringWithMarkup", [])
+    record = main.ghs_info.get("Record", {})
+
 
 # Lots of work to be done
