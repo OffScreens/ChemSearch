@@ -22,7 +22,9 @@ def search_deep_info(cid):
         deep_api_request = config.get_specific_info(cid, header)
         time.sleep(0.75)
         deep_info = session.get(deep_api_request)
-        print(deep_info.json())
+        return deep_info.json()
+
+
 
 def check_connection_status():
     server_pug_rest = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/property/MolecularFormula/JSON"
@@ -48,7 +50,8 @@ print(f"  IUPAC Name: {iupac_name}")
 molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
 print(f"  Molecular weight: {molecular_weight}")
 
-# cid = get_cid_by_name(compound_name) DEPRECATED FUNCTION, instead of a dedicated function
-# we can use de CID identifier from search_basic_info(compound_name)
+deep_info = search_deep_info(cid_number)
+
+
 time.sleep(1)
 search_deep_info(cid_number)
