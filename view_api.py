@@ -7,7 +7,6 @@ import config
 # Repeat User Agent, because I can't figure out how to use the one in main.py :)
 with open("user_agent.txt", "r", encoding="utf-8") as user_file:
     user_agent = user_file.read().rstrip()
-print("The user agent is: "+user_agent)
 
 session = requests.Session()
 session.headers["User-Agent"] = user_agent
