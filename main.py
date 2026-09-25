@@ -2,6 +2,7 @@ import config
 import view_api
 import requests
 import time
+import info_parsing
 
 # Read user_agent.txt with good format so session.headers doesn't crap itself
 with open("user_agent.txt", "r", encoding="utf-8") as user_file:
@@ -43,7 +44,9 @@ molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight
 print(f"  Molecular weight: {molecular_weight}")
 
 # PUG VIEW info
+print("-- GHS HAZARD STATEMENTS --")
 ghs_info = view_api.ghs_info(cid_number)
+info_parsing.ghs_parsing(ghs_info)
 #toxic_info = view_api.toxic_info(cid_number)
 #corrosion_info = view_api.corrosion_info(cid_number)
 #reactivity_info = view_api.reactivity_info(cid_number)
