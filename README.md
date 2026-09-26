@@ -18,3 +18,11 @@ Execute with
 python main.py
 ```
 Enter the name of the chemical compound you want to search!
+
+**This tool interacts with the PUG REST and PUG View APIs provided by PubChem.
+**
+ - All chemical data belongs to the National Center for Biotechnology Information (NCBI).
+
+ - This tool is an independent open-source project and is **not** affiliated with, endorsed by, or sponsored by the NCBI or the NIH.
+
+ - Please use this tool responsibly to avoid overwhelming public servers.
