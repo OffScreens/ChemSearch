@@ -2,10 +2,9 @@ import json
 from pathlib import Path
 
 # This is just for testing purposes, change for definitive with ghs_data or json.
-# json_path = Path("sample_data/GHSaspirin.json")
-# with open(json_path, "r", encoding="utf-8") as f:
-#     data = json.load(f)
-
+json_path = Path("testing/sample_data/toxicology_aspirin.json")
+with open(json_path, "r", encoding="utf-8") as f:
+    data = json.load(f)
 
 def ghs_parsing(ghs_info):
     record = ghs_info.get("Record", {}) # Dictionary, we use .get
@@ -31,4 +30,23 @@ def ghs_parsing(ghs_info):
     return []
     # Notice that there isn't any variable storing GHS statements, maybe for later.
 
-# Lots of work to be done
+def toxicology_parsing(toxic_info):
+    record = toxic_info.get("Record", {})
+    sections = record.get("Section", [])
+    for section in sections:
+        if section.get("TOCHeading") == "Toxicity":
+            toxicity = section.get("Section", [])
+            for toxic_infor in toxicity:
+                if toxic_infor.get("TOCHeading") == "Toxicological Information":
+                    subsection = toxic_infor.get("Section", [])
+                    for info in subsection:
+                        if info.get("TOCHeading") == "Toxicity Summary":
+                            toxic_sum = info.get("Information",  [])
+                            for value in toxic_sum:
+                                values = value.get("Value", {})
+                                markup_list = values.get("StringWithMarkup", [])
+                                for sum in markup_list:
+                                    summary = sum.get("String")
+                                    print(f"   - {summary}")
+                                    return summary
+    return []

@@ -47,7 +47,10 @@ print("-- GHS HAZARD STATEMENTS --")
 ghs_info = view_api.ghs_info(cid_number)
 info_parsing.ghs_parsing(ghs_info)
 
-#toxic_info = view_api.toxic_info(cid_number)
+print("-- TOXICITY SUMMARY --")
+toxic_info = view_api.toxic_info(cid_number)
+info_parsing.toxicology_parsing(toxic_info)
+
 #corrosion_info = view_api.corrosion_info(cid_number)
 #reactivity_info = view_api.reactivity_info(cid_number)
 #storage_info = view_api.storage_info(cid_number)
