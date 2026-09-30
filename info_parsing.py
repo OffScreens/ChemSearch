@@ -2,9 +2,9 @@ import json
 from pathlib import Path
 
 # This is just for testing purposes, change for definitive with ghs_data or json.
-json_path = Path("testing/sample_data/toxicology_aspirin.json")
-with open(json_path, "r", encoding="utf-8") as f:
-    data = json.load(f)
+#json_path = Path("testing/sample_data/toxicology_aspirin.json")
+#with open(json_path, "r", encoding="utf-8") as f:
+#    data = json.load(f)
 
 def ghs_parsing(ghs_info):
     record = ghs_info.get("Record", {}) # Dictionary, we use .get
