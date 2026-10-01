@@ -23,36 +23,37 @@ def check_connection_status():
     server_status = session.get(server_pug_rest)
     print(server_status.status_code, server_status.headers.get("X-Throttling-Control"))
 
-# MAIN APP*
-compound_name = input("Please enter the name of the compound you want to search: ")
-
 # Display Connection Status
 check_connection_status()
 time.sleep(1)
 
 # Extract all the info and display it in a friendly manner
-basic_data = search_basic_info(compound_name) # REQUEST DATA FROM PUBCHEM
-if basic_data and "PropertyTable" in basic_data:
-    # ---------- CsID NUMBER
-    cid_number = basic_data["PropertyTable"]["Properties"][0]["CID"]
-    print(f"  CID identification number: {cid_number}")
-    # ---------- IUPAC NAME
-    iupac_name = basic_data["PropertyTable"]["Properties"][0]["IUPACName"]
-    print(f"  IUPAC Name: {iupac_name}")
-    # ---------- MOLECULAR WEIGHT
-    molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
-    print(f"  Molecular weight: {molecular_weight}")
+compound_found = False
+while not compound_found:
+    compound_name = input("Please enter the name of the compound you want to search: ")
+    basic_data = search_basic_info(compound_name) # REQUEST DATA FROM PUBCHEM
 
-    # PUG VIEW info
-    print("-- GHS HAZARD STATEMENTS --")
-    ghs_info = view_api.ghs_info(cid_number)
-    info_parsing.ghs_parsing(ghs_info)
+    if "PropertyTable" in basic_data:
+        # ---------- CsID NUMBER
+        cid_number = basic_data["PropertyTable"]["Properties"][0]["CID"]
+        print(f"  CID identification number: {cid_number}")
+        # ---------- IUPAC NAME
+        iupac_name = basic_data["PropertyTable"]["Properties"][0]["IUPACName"]
+        print(f"  IUPAC Name: {iupac_name}")
+        # ---------- MOLECULAR WEIGHT
+        molecular_weight = basic_data["PropertyTable"]["Properties"][0]["MolecularWeight"]
+        print(f"  Molecular weight: {molecular_weight}")
 
-    print("-- TOXICITY SUMMARY --")
-    toxic_info = view_api.toxic_info(cid_number)
-    info_parsing.toxicology_parsing(toxic_info)
-else:
-    print("Compound not found")
+        # PUG VIEW info
+        print("-- GHS HAZARD STATEMENTS --")
+        ghs_info = view_api.ghs_info(cid_number)
+        info_parsing.ghs_parsing(ghs_info)
+
+        print("-- TOXICITY SUMMARY --")
+        toxic_info = view_api.toxic_info(cid_number)
+        info_parsing.toxicology_parsing(toxic_info)
+    else:
+        print("Compound not found")
 
 #corrosion_info = view_api.corrosion_info(cid_number)
 #reactivity_info = view_api.reactivity_info(cid_number)
