@@ -4,12 +4,10 @@ import requests
 import time
 import info_parsing
 
-# Read user_agent.txt with good format so session.headers doesn't crap itself
+# USER AGENT FOR API REQUESTS
 with open("user_agent.txt", "r", encoding="utf-8") as user_file:
     user_agent = user_file.read().rstrip()
 
-# Make all session.get have the user agent header, having this here prevents
-# having to write it every request.
 session = requests.Session()
 session.headers["User-Agent"] = user_agent
 
@@ -52,6 +50,7 @@ while not compound_found:
         print("-- TOXICITY SUMMARY --")
         toxic_info = view_api.toxic_info(cid_number)
         info_parsing.toxicology_parsing(toxic_info)
+        break
     else:
         print("Compound not found")
 

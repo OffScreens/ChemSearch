@@ -27,7 +27,7 @@ def ghs_parsing(ghs_info):
                                     for statement in markup_list:
                                         text = statement.get("String")
                                         print(f"   - {text}")
-    return []
+    return ["GHS hazard statements not found."]
     # Notice that there isn't any variable storing GHS statements, maybe for later.
 
 def toxicology_parsing(toxic_info):
@@ -49,4 +49,4 @@ def toxicology_parsing(toxic_info):
                                     summary = sum.get("String")
                                     print(f"   - {summary}")
                                     return summary
-    return []
+    return ["Toxicology information not found."]
