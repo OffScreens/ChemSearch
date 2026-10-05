@@ -32,7 +32,7 @@ while not compound_found:
     basic_data = search_basic_info(compound_name) # REQUEST DATA FROM PUBCHEM
 
     if "PropertyTable" in basic_data:
-        # ---------- CsID NUMBER
+        # ---------- CID NUMBER
         cid_number = basic_data["PropertyTable"]["Properties"][0]["CID"]
         print(f"  CID identification number: {cid_number}")
         # ---------- IUPAC NAME
