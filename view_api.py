@@ -36,7 +36,7 @@ def reactivity_info(cid_number):
     return reactivity_request.json()
 
 def storage_info(cid_number):
-    view_url = config.get_specific_info(cid_number, "Storage+Conditions")
+    view_url = config.get_specific_info(cid_number, "Handling+and+Storage")
     storage_request = session.get(view_url)
     time.sleep(0.75)
     return storage_request.json()

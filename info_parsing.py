@@ -48,13 +48,26 @@ def toxicology_parsing(toxic_info):
                                 for sum in markup_list:
                                     summary = sum.get("String")
                                     print(f"   - {summary}")
-                                    return summary
+
     return ["Toxicology information not found."]
 
-def storage_conditions(storage):
-    record = data.get("Record", {})
+def storage_conditions(storage_info):
+    record = storage_info.get("Record", {})
     sections = record.get("Section", [])
-    for section in setcions:
+    for section in sections:
         if section.get("TOCHeading") == "Safety and Hazards":
-            subsection = section.get("Section", [])
-            for subsection in sub
+            subsections = section.get("Section", [])
+            for subsection in subsections:
+                if subsection.get("TOCHeading") == "Handling and Storage":
+                    information = subsection.get("Section", [])
+                    for infos in information:
+                        if infos.get("TOCHeading") == "Nonfire Spill Response":
+                            spill_resp = infos.get("Information", [])
+                            for value in spill_resp:
+                                values = value.get("Value", {})
+                                markup_list = values.get("StringWithMarkup", [])
+                                for condition in markup_list:
+                                    conditions = condition.get("String")
+                                    print(f"   - {conditions}")
+
+    return ["Storage conditions & handling information not found"]
