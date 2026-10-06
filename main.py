@@ -1,3 +1,5 @@
+import os
+import json
 import config
 import view_api
 import requests
@@ -62,3 +64,17 @@ while not compound_found:
 #reactivity_info = view_api.reactivity_info(cid_number)
 #storage_info = view_api.storage_info(cid_number)
 #ppe_info = view_api.ppe_info(cid_number)
+
+# Create cache with clean output data that can be used later for not sending repeated
+# requests to PubChem API
+CACHE_DIR = "compound_cache"
+def save_compound_data(compound_name): # Function for saved data, check if exists, if not creates.
+    clean_name = compound_name.lower()
+    cache = os.path.join(CACHE_DIR, f"{clean_name}.json")
+    # Check if there's preexisting compound cache
+    if os.path.exists(cache):
+        print(f"Local cache found on '{clean_name}', loading and displaying information...")
+        with open(cache, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+# Include this in main app loop
