@@ -1,5 +1,4 @@
-import os
-import json
+from info_parsing import cache_information
 import config
 import view_api
 import requests
@@ -23,6 +22,17 @@ def check_connection_status():
     server_status = session.get(server_pug_rest)
     print(server_status.status_code, server_status.headers.get("X-Throttling-Control"))
 
+def cacche_informtaion():
+    cache_file =  {
+        "compound_name": compound_name,
+        "cid": cid_number,
+        "iupac_name": iupac_name,
+        "molecular_weight": molecular_weight,
+        "ghs_statements": ghs_statements,
+        "toxicity_information": toxicity_info,
+        "storage_conditions": storage_cond
+    }
+
 # Display Connection Status
 check_connection_status()
 time.sleep(1)
@@ -30,7 +40,8 @@ time.sleep(1)
 # Extract all the info and display it in a friendly manner
 compound_found = False
 while not compound_found:
-    compound_name = input("Please enter the name of the compound you want to search: ")
+    name_input = input("Please enter the name of the compound you want to search: ")
+    compound_name = name_input.lower().strip()
     basic_data = search_basic_info(compound_name) # REQUEST DATA FROM PUBCHEM
 
     if "PropertyTable" in basic_data:
@@ -47,15 +58,15 @@ while not compound_found:
         # PUG VIEW info
         print("-- GHS HAZARD STATEMENTS --")
         ghs_info = view_api.ghs_info(cid_number)
-        info_parsing.ghs_parsing(ghs_info)
+        ghs_statements = info_parsing.ghs_parsing(ghs_info)
 
         print("-- TOXICITY SUMMARY --")
         toxic_info = view_api.toxic_info(cid_number)
-        info_parsing.toxicology_parsing(toxic_info)
+        toxicity_info = info_parsing.toxicology_parsing(toxic_info)
 
         print("-- HANDLING & STORAGE CONDITIONS --")
         storage_info = view_api.storage_info(cid_number)
-        info_parsing.storage_conditions(storage_info)
+        storage_cond = info_parsing.storage_conditions(storage_info)
         break
     else:
         print("Compound not found")
@@ -64,17 +75,3 @@ while not compound_found:
 #reactivity_info = view_api.reactivity_info(cid_number)
 #storage_info = view_api.storage_info(cid_number)
 #ppe_info = view_api.ppe_info(cid_number)
-
-# Create cache with clean output data that can be used later for not sending repeated
-# requests to PubChem API
-CACHE_DIR = "compound_cache"
-def save_compound_data(compound_name): # Function for saved data, check if exists, if not creates.
-    clean_name = compound_name.lower()
-    cache = os.path.join(CACHE_DIR, f"{clean_name}.json")
-    # Check if there's preexisting compound cache
-    if os.path.exists(cache):
-        print(f"Local cache found on '{clean_name}', loading and displaying information...")
-        with open(cache, "r", encoding="utf-8") as f:
-            return json.load(f)
-
-# Include this in main app loop
