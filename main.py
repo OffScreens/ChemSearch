@@ -38,10 +38,27 @@ while not compound_found:
     cache_path = os.path.join(CACHE_DIR, f"{compound_name}.json")
 
     if os.path.exists(cache_path):
-        print("💽 [Caché] Cargando información desde el disco local...")
+        print(f"Found cached information on {compound_name}")
+
         with open(cache_path, "r", encoding="utf-8") as f:
-            datos_cache = json.load(f)
+            cached_info = json.load(f)
             # Make code for printing from cached data
+            print(f"  CID identification number: {cached_info['cid_number']}")
+            print(f"  IUPAC Name: {cached_info['iupac_name']}")
+            print(f"  Molecular weight: {cached_info['molecular_weight']}")
+
+            print("-- GHS HAZARD STATEMENTS --")
+            for statement in cached_info("ghs_statements", []):
+                print(f"   - {statement}")
+
+            print("-- TOXICITY SUMMARY --")
+            for tox in cached_info("toxicity_info", []):
+                print(f"   - {tox}")
+
+            print("-- HANDLING & STORAGE CONDITIONS --")
+            for storage in cached_info("storage_cond", []):
+                print(f"   - {storage}")
+
         compound_found = True
         break
 
