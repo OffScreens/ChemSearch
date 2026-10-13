@@ -6,11 +6,11 @@ from pathlib import Path
 #with open(json_path, "r", encoding="utf-8") as f:
 #    data = json.load(f)
 
-cache_information = []
-
 def ghs_parsing(ghs_info):
     record = ghs_info.get("Record", {}) # Dictionary, we use .get
     sections = record.get("Section", []) # List, use for loop
+    ghs_statements = []
+
     for section in sections:
         if section.get("TOCHeading") == "Safety and Hazards":
             hazards_sections = section.get("Section", [])
@@ -29,16 +29,16 @@ def ghs_parsing(ghs_info):
                                     for statement in markup_list:
                                         ghs_text = statement.get("String")
                                         print(f"   - {ghs_text}")
-                                        cache_information.append(ghs_text)
-    if cache_information:
-        return cache_information
-
+                                        ghs_statements.append(ghs_text)
+    if ghs_statements:
+        return ghs_statements
     return ["GHS hazard statements not found."]
-    # Notice that there isn't any variable storing GHS statements, maybe for later.
 
 def toxicology_parsing(toxic_info):
     record = toxic_info.get("Record", {})
     sections = record.get("Section", [])
+    toxicology_info = []
+
     for section in sections:
         if section.get("TOCHeading") == "Toxicity":
             toxicity = section.get("Section", [])
@@ -54,15 +54,18 @@ def toxicology_parsing(toxic_info):
                                 for sum in markup_list:
                                     toxic_text = sum.get("String")
                                     print(f"   - {toxic_text}")
-                                    cache_information.append(toxic_text)
-    if cache_information:
-        return cache_information
+                                    toxicology_info.append(toxic_text)
+
+    if toxicology_info:
+        return toxicology_info
 
     return ["Toxicology information not found."]
 
 def storage_conditions(storage_info):
     record = storage_info.get("Record", {})
     sections = record.get("Section", [])
+    storage_cond = []
+
     for section in sections:
         if section.get("TOCHeading") == "Safety and Hazards":
             subsections = section.get("Section", [])
@@ -78,10 +81,10 @@ def storage_conditions(storage_info):
                                 for condition in markup_list:
                                     stor_condit = condition.get("String")
                                     if stor_condit:
-                                        cache_information.append(stor_condit)
+                                        storage_cond.append(stor_condit)
                                         print(f"   - {stor_condit}")
-                                        cache_information.append(stor_condit)
-    if cache_information:
-        return cache_information
+                                        storage_cond.append(stor_condit)
+    if storage_cond:
+        return storage_cond
 
     return ["Storage conditions & handling information not found"]
