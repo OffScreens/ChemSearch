@@ -6,6 +6,8 @@ from pathlib import Path
 #with open(json_path, "r", encoding="utf-8") as f:
 #    data = json.load(f)
 
+cache_information = []
+
 def ghs_parsing(ghs_info):
     record = ghs_info.get("Record", {}) # Dictionary, we use .get
     sections = record.get("Section", []) # List, use for loop
@@ -27,6 +29,10 @@ def ghs_parsing(ghs_info):
                                     for statement in markup_list:
                                         ghs_text = statement.get("String")
                                         print(f"   - {ghs_text}")
+                                        cache_information.append(ghs_text)
+    if cache_information:
+        return cache_information
+
     return ["GHS hazard statements not found."]
     # Notice that there isn't any variable storing GHS statements, maybe for later.
 
@@ -48,6 +54,9 @@ def toxicology_parsing(toxic_info):
                                 for sum in markup_list:
                                     toxic_text = sum.get("String")
                                     print(f"   - {toxic_text}")
+                                    cache_information.append(toxic_text)
+    if cache_information:
+        return cache_information
 
     return ["Toxicology information not found."]
 
@@ -68,6 +77,11 @@ def storage_conditions(storage_info):
                                 markup_list = values.get("StringWithMarkup", [])
                                 for condition in markup_list:
                                     stor_condit = condition.get("String")
-                                    print(f"   - {stor_condit}")
+                                    if stor_condit:
+                                        cache_information.append(stor_condit)
+                                        print(f"   - {stor_condit}")
+                                        cache_information.append(stor_condit)
+    if cache_information:
+        return cache_information
 
     return ["Storage conditions & handling information not found"]
