@@ -15,9 +15,12 @@ cd ChemSearch
 **USAGE:**
 Execute with
 ```bash
+cd /ChemSearch
 python main.py
 ```
 Enter the name of the chemical compound you want to search!
+
+Cache on chemical compounds is stored in cached_compounds, whenever you want to delete all cash, you just can go in there an Supr everything.
 
 **This tool interacts with the PUG REST and PUG View APIs provided by PubChem:**
  - All chemical data belongs to the National Center for Biotechnology Information (NCBI).
